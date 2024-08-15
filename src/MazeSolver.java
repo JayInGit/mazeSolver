@@ -118,7 +118,6 @@ public class MazeSolver {
         JRadioButton square;
 
         // basic buttons
-        JButton resetButton;
         JButton mazeButton;
         JButton clearButton;
         JButton stepButton;
@@ -145,30 +144,30 @@ public class MazeSolver {
             grid = new int[rows][columns];
 
             square = new JRadioButton("Square");
-            square.setToolTipText("Square cell");
             square.setSelected(true);
 
-            resetButton = new JButton("New grid");
-            resetButton.setBackground(Color.lightGray);
-            resetButton.setToolTipText("Clears and redraws the grid according to the given rows and columns");
+
 
             mazeButton = new JButton("Maze");
             mazeButton.setBackground(Color.lightGray);
-            mazeButton.setToolTipText("Creates a random maze");
+            mazeButton.addActionListener(this::mazeButtonAction);
+
 
             clearButton = new JButton("Clear");
             clearButton.setBackground(Color.lightGray);
-            clearButton.setToolTipText("First click: clears search, Second click: clears obstacles");
+            clearButton.addActionListener(this::clearButtonAction);
+
 
             stepButton = new JButton("Step-by-Step");
             stepButton.setBackground(Color.lightGray);
-            stepButton.setToolTipText("The search is performed step-by-step for every click");
+            stepButton.addActionListener(this::stepButtonAction);
+
 
             animationButton = new JButton("Animation");
             animationButton.setBackground(Color.lightGray);
-            animationButton.setToolTipText("The search is performed automatically");
+            animationButton.addActionListener(this::animationButtonAction);
 
-            // need methods to disable these buttons when the algorithm, animation is running ##########################################
+
 
             JLabel delayLbl = new JLabel("Delay (0-1000 msec)", JLabel.CENTER);
             delayLbl.setFont(new Font("Helvetica",Font.PLAIN,10));
@@ -209,7 +208,6 @@ public class MazeSolver {
 
 
             super.add(square);
-            super.add(resetButton);
             super.add(mazeButton);
             super.add(clearButton);
             super.add(stepButton);
@@ -225,7 +223,6 @@ public class MazeSolver {
 
             square.setBounds(610, 80, 70, 25);
 
-            resetButton.setBounds(520, 135, 170, 25);
             mazeButton.setBounds(520, 165, 170, 25);
             clearButton.setBounds(520, 195, 170, 25);
             stepButton.setBounds(520, 255, 170, 25);
@@ -322,5 +319,14 @@ public class MazeSolver {
             repaint();
 
         }
+        private void mazeButtonAction(java.awt.event.ActionEvent event){
+        }
+        private void clearButtonAction(java.awt.event.ActionEvent event){
+        }
+        private void stepButtonAction(java.awt.event.ActionEvent event){
+        }
+        private void animationButtonAction(java.awt.event.ActionEvent event){
+        }
+
     }
 }
