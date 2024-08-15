@@ -95,7 +95,7 @@ public class MazeSolver {
         private class RepaintAction implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                //////////////////////////////////////////////////////// checkTermination(); //////////////////////////////////////////////////
+                checkEnding();
                 repaint();
                 if (endOfSearch)
                 {
@@ -111,7 +111,6 @@ public class MazeSolver {
         int[][] grid;
         int delay;
         int expanded;
-        boolean found;
         Cell robotStart;
         Cell targetPos;
         Point[][] centers;
@@ -128,6 +127,8 @@ public class MazeSolver {
         boolean searching;
         boolean endOfSearch;
         boolean animation;
+        boolean realTime;
+        boolean found;
         ArrayList<Cell> openSet   = new ArrayList();
         ArrayList<Cell> closedSet = new ArrayList();
 
@@ -308,7 +309,6 @@ public class MazeSolver {
             endOfSearch = false;
 
             // The first step of the other four algorithms is here
-            // 1. OPEN SET: = [So], CLOSED SET: = []
             openSet.removeAll(openSet);
             openSet.add(robotStart);
             closedSet.removeAll(closedSet);
@@ -320,12 +320,37 @@ public class MazeSolver {
 
         }
         private void mazeButtonAction(java.awt.event.ActionEvent event){
+            animation = false;
+            realTime = false;
+            stepButton.setEnabled(true);
+            animationButton.setEnabled(true);
+            initializeGrid(true);
         }
         private void clearButtonAction(java.awt.event.ActionEvent event){
+            animation = false;
+            realTime = false;
+            stepButton.setEnabled(true);
+            animationButton.setEnabled(true);
+            fillGrid();
         }
         private void stepButtonAction(java.awt.event.ActionEvent event){
+            animation = false;
+            timer.stop();
+            if (found || endOfSearch)
+                return;
+            searching = true;
+            checkEnding();
+            repaint();
         }
         private void animationButtonAction(java.awt.event.ActionEvent event){
+            animation = true;
+            searching = true;
+            delay = 1;
+            timer.setDelay(delay);
+            timer.start();
+        }
+        public void checkEnding() {
+            //check if the search is going to end or not
         }
 
     }
