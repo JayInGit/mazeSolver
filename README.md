@@ -3,11 +3,11 @@ This maze solver will generate a perfect(no cycle, no trapped target position) m
 There are two algorithms, breadth-first search(BFS) and depth-first search(DFS), that are able to solve the maze.
 
 There are buttons that the users can press to change the algorithms they want to use when solving the maze. The user can change the algorithm while the maze is in animation(auto) mode. 
-The <Maze> button will generate a perfect maze every time the user clicks it. 
-The <clear> button will clear the grid. 
+The -Maze- button will generate a perfect maze every time the user clicks it. 
+The -clear- button will clear the grid. 
     - The first time the user presses, it will delete the path(if there is any) discovered by the algorithm. 
     - The second time the user presses it the whole grid, except the starting position and the ending position.
-The <Step-by-step> button will visualize the algorithms solving the maze step by step. Every time the user presses the button one new cell will be discovered. 
-The <Animation> button will make the maze-solving like an animation. The delay of each step is set to 1 millisecond.
+The -Step-by-step- button will visualize the algorithms solving the maze step by step. Every time the user presses the button one new cell will be discovered. 
+The -Animation- button will make the maze-solving like an animation. The delay of each step is set to 1 millisecond.
 
 After the algorithm is done solving the maze, the direct path from the starting position to the ending position is going to be labeled in a different color. It will leave the other discovered path that is not part of the path. 
