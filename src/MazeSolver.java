@@ -231,22 +231,6 @@ public class MazeSolver {
             bfs.setToolTipText("Breadth First Search algorithm");
             algoGroup.add(bfs);
 
-            JLabel robot = new JLabel("Robot", JLabel.CENTER);
-            robot.setForeground(Color.red);
-            robot.setFont(new Font("Helvetica", Font.PLAIN, 14));
-
-            JLabel target = new JLabel("Target", JLabel.CENTER);
-            target.setForeground(Color.GREEN);
-            target.setFont(new Font("Helvetica", Font.PLAIN, 14));
-
-            JLabel frontier = new JLabel("Frontier", JLabel.CENTER);
-            frontier.setForeground(Color.blue);
-            frontier.setFont(new Font("Helvetica", Font.PLAIN, 14));
-
-            JLabel closed = new JLabel("Closed set", JLabel.CENTER);
-            closed.setForeground(Color.CYAN);
-            closed.setFont(new Font("Helvetica", Font.PLAIN, 14));
-
 
             super.add(square);
             super.add(mazeButton);
@@ -255,10 +239,6 @@ public class MazeSolver {
             super.add(animationButton);
             super.add(dfs);
             super.add(bfs);
-            super.add(robot);
-            super.add(target);
-            super.add(frontier);
-            super.add(closed);
 
 
             square.setBounds(610, 135, 70, 25);
@@ -271,10 +251,6 @@ public class MazeSolver {
             dfs.setBounds(530, 285, 70, 25);
             bfs.setBounds(605, 285, 70, 25);
 
-            robot.setBounds(520, 475, 80, 25);
-            target.setBounds(605, 475, 80, 25);
-            frontier.setBounds(520, 495, 80, 25);
-            closed.setBounds(605, 495, 80, 25);
 
 
             timer = new Timer(delay, action);
