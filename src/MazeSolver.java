@@ -125,11 +125,11 @@ public class MazeSolver {
                     } else if (grid[r][c] == MazeConstants.OBST) {
                         g.setColor(Color.BLACK);
                     } else if (grid[r][c] == MazeConstants.FRONTIER) {
-                        g.setColor(Color.BLUE);
+                        g.setColor(Color.MAGENTA);
                     } else if (grid[r][c] == MazeConstants.CLOSED) {
-                        g.setColor(Color.CYAN);
+                        g.setColor(Color.GRAY);
                     } else if (grid[r][c] == MazeConstants.ROUTE) {
-                        g.setColor(Color.YELLOW);
+                        g.setColor(Color.GREEN);
                     }
 
                     if (square.isSelected())
@@ -405,11 +405,27 @@ public class MazeSolver {
             expandNode();
             if (found) {
                 endOfSearch = true;
-                //TODO plotRoute()                       //plot route
+                plotPath();
                 stepButton.setEnabled(false);          // change color ithink
                 animationButton.setEnabled(false);     // change color i think
                 repaint(); //updates graphic
             }
+        }
+        private void plotPath(){
+            int steps = 0;
+            double distance = 0;
+            int index = isInList(closedSet,targetPos);
+            Cell cur = closedSet.get(index);
+            grid[cur.row][cur.col]= MazeConstants.TARGET;
+            do {
+                steps++;
+                double dx = centers[cur.row][cur.col].getX() - centers[cur.prev.row][cur.prev.col].getX();
+                double dy = centers[cur.row][cur.col].getY() - centers[cur.prev.row][cur.prev.col].getY();
+                distance += Math.hypot(dx, dy);
+                cur = cur.prev;
+                grid[cur.row][cur.col] = MazeConstants.ROUTE;
+            } while (!(cur.row == robotStart.row && cur.col == robotStart.col));
+            grid[robotStart.row][robotStart.col]=MazeConstants.ROBOT;
         }
 
 
@@ -462,6 +478,20 @@ public class MazeSolver {
             // checks if the cell is not in the left edge, cell to the left is not and obst, is the cell is not in the openSet and closedSet
             if (c > 0 && grid[r][c-1] != MazeConstants.OBST && ((dfs.isSelected() || bfs.isSelected()) ? isInList(openSet,new Cell(r,c-1)) == -1 && isInList(closedSet,new Cell(r,c-1)) == -1 : true)) {
                 Cell cell = new Cell(r,c-1);
+
+                cell.prev = current;
+
+                temp.add(cell);
+            }
+            if (r < rows-1 && grid[r+1][c] != MazeConstants.OBST && ((dfs.isSelected() || bfs.isSelected()) ? isInList(openSet,new Cell(r+1,c)) == -1 && isInList(closedSet,new Cell(r+1,c)) == -1 : true)) {
+                Cell cell = new Cell(r+1,c);
+
+                cell.prev = current;
+
+                temp.add(cell);
+            }
+            if (r > 0 && grid[r-1][c] != MazeConstants.OBST && ((dfs.isSelected() || bfs.isSelected()) ? isInList(openSet,new Cell(r-1,c)) == -1 && isInList(closedSet,new Cell(r-1,c)) == -1 : true)) {
+                Cell cell = new Cell(r-1,c);
 
                 cell.prev = current;
 
