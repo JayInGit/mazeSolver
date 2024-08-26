@@ -58,7 +58,7 @@ public class MazeSolver {
             }
 
             private static enum DIR { // DIRECTIONS
-                N(1, 0, -1), S(2, 0, 1), E(4, 1, 0), W(8, -1, 0);
+                N(1, 0, -1), S(2, 0, 1), E(4, 1, 0), W(8, -1, 0); // setting the bit for each direction
                 private final int bit;
                 private final int dx;
                 private final int dy;
@@ -82,9 +82,7 @@ public class MazeSolver {
         private class Cell {
             int row;
             int col;
-            Cell prev;   // Each state corresponds to a cell
-            // and each state has a predecessor which
-            // is stored in this variable
+            Cell prev;
 
             public Cell(int row, int col) {
                 this.row = row;
@@ -93,7 +91,7 @@ public class MazeSolver {
 
         }
 
-        private class RepaintAction implements ActionListener { // repaint updates the graphic so that i can actually see it, have to call it every time after made any changes.
+        private class RepaintAction implements ActionListener { // repaint updates the graphic so that i can actually see it, have to call it every time after making any changes in the graphic.
             @Override
             public void actionPerformed(ActionEvent evt) {
                 checkEnding();
@@ -104,9 +102,6 @@ public class MazeSolver {
                 }
             }
         }
-        /**
-         * Repaints the grid
-         */
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -161,14 +156,10 @@ public class MazeSolver {
         Cell targetPos;
         Point[][] centers;
         JRadioButton square;
-
-        // basic buttons
         JButton mazeButton;
         JButton clearButton;
         JButton stepButton;
         JButton animationButton;
-
-        // buttons for selecting the algorithm
         JRadioButton dfs, bfs;
         boolean searching;
         boolean endOfSearch;
@@ -182,7 +173,7 @@ public class MazeSolver {
         // the object that controls the animation
         RepaintAction action = new RepaintAction();
 
-        // the Timer which governs the execution speed of the animation
+        // the Timer for the speed of the animation
         Timer timer;
 
         public Maze(int width, int height) { //constructor
@@ -217,9 +208,6 @@ public class MazeSolver {
 
             delay = 1; // this is in msec
 
-            // ButtonGroup that synchronizes the five RadioButtons
-            // choosing the algorithm, so that only one
-            // can be selected anytime
             ButtonGroup algoGroup = new ButtonGroup();
 
             dfs = new JRadioButton("DFS");
@@ -241,8 +229,6 @@ public class MazeSolver {
             super.add(bfs);
 
 
-            square.setBounds(610, 135, 70, 25);
-
             mazeButton.setBounds(520, 165, 170, 25);
             clearButton.setBounds(520, 195, 170, 25);
             stepButton.setBounds(520, 225, 170, 25);
@@ -251,10 +237,7 @@ public class MazeSolver {
             dfs.setBounds(530, 285, 70, 25);
             bfs.setBounds(605, 285, 70, 25);
 
-
-
             timer = new Timer(delay, action);
-
 
             // the first step of the algorithms
             initializeGrid(false);
@@ -263,22 +246,13 @@ public class MazeSolver {
         private void initializeGrid(Boolean makeMaze) {
             rows=43;
             columns=43;
-            if (makeMaze && (square.isSelected()? rows % 2 != 1 : rows % 4 != 0)){
-                if (square.isSelected()){
-                    rows--;
-                } else{
-                    rows = Math.max((rows/4)*4,8);
-                }
-            }
+
             grid = new int[rows][columns];
             centers = new Point[rows][columns];
-            if (square.isSelected()) {
-                robotStart = new Cell(rows - 2, 1);
-                targetPos = new Cell(1, columns - 2);
-            } else {
-                robotStart = new Cell(rows - 1, 0);
-                targetPos = new Cell(0, columns - 1);
-            }
+
+            robotStart = new Cell(rows - 2, 1);
+            targetPos = new Cell(1, columns - 2);
+
 
             //  Calculation of the size of the square cell
             if (rows > columns && rows != 0){
@@ -304,7 +278,6 @@ public class MazeSolver {
         }
 
         private void fillGrid() {
-
             if (searching || endOfSearch) { // if maze in progress or finished
                 for (int r = 0; r < rows; r++)
                     for (int c = 0; c < columns; c++) {
@@ -331,7 +304,6 @@ public class MazeSolver {
             searching = false;
             endOfSearch = false;
 
-            // The first step of the other four algorithms is here
             openSet.removeAll(openSet);
             openSet.add(robotStart);
             closedSet.removeAll(closedSet);
